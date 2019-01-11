@@ -52,7 +52,7 @@ describe("Conjunction", () => {
   });
 
   describe('satisfaction', () => {
-    it('satisfies complex requirements on a state that includes red herrings.', () => {
+    it('satisfies requirements on a state that includes red herrings.', () => {
       const c = new Conjunction({ AFOO: null, ABAR: true, AQUUX: false });
       const s = {
         AFOO: null,
@@ -63,10 +63,20 @@ describe("Conjunction", () => {
       expect(c.sat(s)).to.equal(true);
     });
 
-    it("does not satisfy complex requirements on a false element with null expect in a state that includes red herrings.", () => {
+    it("does not satisfy when requirements are met.", () => {
       const c = new Conjunction({ AFOO: null, ABAR: true, AQUUX: false });
-      const s = { AFOO: false, ABAR: true, AQUUX: false, AZIFF: true };
+      const s = { AFOO: true, ABAR: true, AQUUX: false, AZIFF: true };
       expect(c.sat(s)).to.equal(false);
+    });
+
+    it("does not confuse false with null.", () => {
+      const c = new Conjunction({ AFOO: null });
+      const s = { AFOO: false };
+      expect(c.sat(s)).to.equal(false);
+
+      const c2 = new Conjunction({ AFOO: null });
+      const s2 = { AFOO: null };
+      expect(c2.sat(s2)).to.equal(true);
     });
 
   });

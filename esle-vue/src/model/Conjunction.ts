@@ -1,5 +1,5 @@
 
-import Ternary from './Ternary';
+import { Ternary, NamedTernaries} from './Ternary';
 
 /**
  * An object that represents the desired state of a subset of named ternary term.
@@ -7,18 +7,29 @@ import Ternary from './Ternary';
  * to False.
  */
 export default class Conjunction {
-  private conditions = {} as {[key: string]: Ternary};
+  private conditions = {} as NamedTernaries;
 
   constructor(conditions = {}) {
     this.assignConditions(conditions);
   }
+
+
+  /**
+   * 
+   * @param states The current state of every term in the network, mapped to that term's name.
+   * @param numTermsMax: 
+   */
+  static generateRandom(states: NamedTernaries, numTermsMax: number, numTermsMin=1): Conjunction {
+
+  }
+
 
   /**
    * Adds to the conditions of this Conjunction.
    * @param conditions A map of term names to the values that those terms must have in order
    * for this Conjunction to be satisfied.
    */
-  assignConditions(conditions: { [key: string]: Ternary }) {
+  assignConditions(conditions: NamedTernaries) {
     Object.assign(this.conditions, conditions);
   }
 
@@ -29,7 +40,7 @@ export default class Conjunction {
    * current state in "states".
    * @param states The current state of every term in the network, mapped to that term's name.
    */
-  sat(states: { [key: string]: Ternary }) : Boolean {
+  sat(states: NamedTernaries) : Boolean {
     for (let termname in this.conditions) {
       if (!(termname in states)) {
         throw new ReferenceError(`'${termname}' not in network.`);

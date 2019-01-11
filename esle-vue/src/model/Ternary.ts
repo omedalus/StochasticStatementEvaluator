@@ -12,4 +12,11 @@
  */
 type Ternary = Boolean|null;
 
-export default Ternary;
+/**
+ * Shorthand for a map of Ternary variables.
+ */
+type NamedTernaries = { [key: string]: Ternary };
+
+export { Ternary, NamedTernaries };
+
+
