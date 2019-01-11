@@ -10,7 +10,7 @@
  * passes without that node getting checked, but that will be the subject
  * of later experiments.)
  */
-type Ternary = Boolean|null;
+type Ternary = boolean|null;
 
 /**
  * Shorthand for a map of Ternary variables.
